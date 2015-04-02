@@ -17,6 +17,7 @@
             // when data is comming from the server, this metod is called
             ws.onmessage = function (evt) {
                 inc.innerHTML += evt.data + '<br/>';
+                ws.send("ACK:" + JSON.parse(evt.data).MesajId);
             };
 
             // when the connection is established, this method is called
@@ -42,7 +43,7 @@
 </head>
 <body>
 	<form id="sendForm">
-		<input id="sendText" placeholder="Text to send" />
+        <input id="sendText" placeholder="Text to send" value="ABONE:1-1" />
 	</form>
     <pre id="incomming"></pre>
 </body>

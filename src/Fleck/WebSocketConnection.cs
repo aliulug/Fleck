@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using System.Threading.Tasks;
+using Fleck.Ada;
 
 namespace Fleck
 {
@@ -91,6 +92,8 @@ namespace Fleck
           taskForException.SetException(new ConnectionNotAvailableException(errorMessage));
           return taskForException.Task;
       }
+
+	  AdaFleckRuntime.GetMessageCounter().ProcessMessage(message);
 
       var bytes = createFrame(message);
       return SendBytes(bytes);

@@ -65,6 +65,9 @@
     </When>
   </Choose>
   <ItemGroup>
+    <Compile Include="Ada\AdaFleckRuntime.cs" />
+    <Compile Include="Ada\IMessageCounter.cs" />
+    <Compile Include="Ada\MessageCounter.cs" />
     <Compile Include="ConnectionNotAvailableException.cs" />
     <Compile Include="Handlers\ComposableHandler.cs" />
     <Compile Include="Handlers\Draft76Handler.cs" />
@@ -120,7 +123,10 @@
   </Target>
   -->
   <ItemGroup />
-  <ItemGroup>
-    <Folder Include="Helpers\" />
-  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup>
+    <PostBuildEvent>del "$(SolutionDir)..\..\..\__GerekliDLL\Fleck.dll"
+xcopy "$(TargetDir)Fleck.dll" "$(SolutionDir)..\..\..\__GerekliDLL\"
+</PostBuildEvent>
+  </PropertyGroup>
 </Project>
