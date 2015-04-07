@@ -99,7 +99,7 @@ namespace Fleck
 		    _listenForClientsRetryCount++;
 		    if (_listenForClientsRetryCount <= MaxListenForClientsRetryNumber)
 		    {
-				FleckLog.Info("Trying to open listener socket for the " + _listenForClientsRetryCount + ". time", ex);
+				FleckLog.Info("Trying to open listener socket for the " + _listenForClientsRetryCount + ". time");
 				ListenForClients();
 			}
 	    }
