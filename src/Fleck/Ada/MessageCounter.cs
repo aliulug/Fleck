@@ -1,9 +1,11 @@
-﻿namespace Fleck.Ada
+﻿using System;
+
+namespace Fleck.Ada
 {
 	public class MessageCounter : IMessageCounter
 	{
-		private static volatile int _numberOfUserMessages;
-		private static volatile int _numberOfAdminMessages;
+		private static int _numberOfUserMessages;
+		private static int _numberOfAdminMessages;
 
 		private MessageCounter()
 		{
@@ -30,8 +32,11 @@
 			_numberOfAdminMessages = 0;
 		}
 
-		public void ProcessMessage(object message)
+		public void ProcessMessage<T>(T message)
 		{
+//#if DEBUG
+//			System.Diagnostics.Debugger.Break();
+//#endif
 			if (message is string && message.ToString().Contains("Abonelik başarılı"))
 				_numberOfAdminMessages++;
 			else
