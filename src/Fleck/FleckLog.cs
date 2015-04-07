@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using AdaGenel.Extensions;
+using AdaPublicGenel.Log;
 
 namespace Fleck
 {
@@ -16,8 +19,13 @@ namespace Fleck
 
         public static Action<LogLevel, string, Exception> LogAction = (level, message, ex) =>
         {
-            if (level >= Level)
-                Console.WriteLine("{0} [{1}] {2} {3}", DateTime.Now, level, message, ex);
+	        if (level >= Level)
+	        {
+		        string mesaj = message;
+		        if (ex != null)
+			        mesaj += " Fleck Exception: " + ex.DosyayaLoglanacakStringAl();
+				LogMotoru.Logla(mesaj, level == LogLevel.Error ? LogTipi.Hata : LogTipi.Bilgi, "Fleck");
+	        }   
         };
 
         public static void Warn(string message, Exception ex = null)

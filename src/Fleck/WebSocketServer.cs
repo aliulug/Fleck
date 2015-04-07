@@ -88,10 +88,23 @@ namespace Fleck
 
         private void ListenForClients()
         {
-            ListenerSocket.Accept(OnClientConnect, e => FleckLog.Error("Listener socket is closed", e));
+			ListenerSocket.Accept(OnClientConnect, listenForClientsExceptionHandler);
         }
 
-        private void OnClientConnect(ISocket clientSocket)
+	    private int _listenForClientsRetryCount;
+		public const int MaxListenForClientsRetryNumber = 250;
+	    private void listenForClientsExceptionHandler(Exception ex)
+	    {
+		    FleckLog.Error("Listener socket is closed", ex);
+		    _listenForClientsRetryCount++;
+		    if (_listenForClientsRetryCount <= MaxListenForClientsRetryNumber)
+		    {
+				FleckLog.Info("Trying to open listener socket for the " + _listenForClientsRetryCount + ". time", ex);
+				ListenForClients();
+			}
+	    }
+
+	    private void OnClientConnect(ISocket clientSocket)
         {
             if (clientSocket == null) return; // socket closed
 
