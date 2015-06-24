@@ -31,6 +31,10 @@ namespace Fleck.Samples.ConsoleApp
                         };
                 });
 
+			System.Threading.Thread.Sleep(10000);
+			server.Dispose();
+
+
 
             var input = Console.ReadLine();
             while (input != "exit")
